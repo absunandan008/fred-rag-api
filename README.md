@@ -130,7 +130,7 @@ No code changes needed.
 | `OLLAMA_MODEL` | `llama3.2` | Ollama model name |
 | `BEDROCK_MODEL_ID` | `us.amazon.nova-micro-v1:0` | Bedrock model ID |
 | `AWS_REGION` | `us-east-1` | AWS region |
-| `CHROMA_PATH` | `/app/vectorstore` | ChromaDB persistence path |
+| `CHROMA_PATH` | `./vectorstore` | ChromaDB persistence path |
 | `FRED_API_KEY` | — | Required for data ingestion |
 
 ## Learning Context
