@@ -10,6 +10,7 @@ app = FastAPI(title="FRED RAG API")
 class QueryRequest(BaseModel):
     question: str
     n_results: int = 5
+    date_from: str = None
 
 
 class QueryResponse(BaseModel):
@@ -29,7 +30,7 @@ def query(request: QueryRequest):
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
-    context = retrieve(request.question, n_results=request.n_results)
+    context = retrieve(request.question, n_results=request.n_results, date_from=request.date_from)
 
     if not context:
         raise HTTPException(status_code=404, detail="No relevant context found")

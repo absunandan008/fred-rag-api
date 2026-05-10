@@ -27,14 +27,31 @@ def fetch_series(series_id: str) -> list[dict]:
     response.raise_for_status()
     return response.json()["observations"]
 
-def build_chunks(series_id: str, label: str, observations: list[dict]) -> list[str]:
+def build_chunks(series_id: str, label: str, observations: list[dict]) -> tuple[list[str], list[dict]]:
     chunks = []
-    for obs in observations:
-        if obs["value"] == ".":
+    metadatas = []
+    window_size = 6
+
+    observations = [o for o in observations if o["value"] != "."]
+
+    for i in range(0, len(observations), window_size):
+        window = observations[i:i + window_size]
+        if not window:
             continue
-        text = f"In {obs['date']}, the {label} ({series_id}) was {obs['value']}."
+
+        lines = "\n".join([f"  {o['date']}: {o['value']}" for o in window])
+        text = f"The {label} ({series_id}) from {window[-1]['date']} to {window[0]['date']}:\n{lines}"
+
         chunks.append(text)
-    return chunks
+        metadatas.append({
+            "series_id": series_id,
+            "label": label,
+            "date_from": window[-1]["date"],
+            "date_to": window[0]["date"],
+            "date_to_int": int(window[0]["date"].replace("-", "")),
+        })
+
+    return chunks, metadatas
 
 def ingest():
     client = chromadb.PersistentClient(path=CHROMA_PATH)
@@ -43,11 +60,11 @@ def ingest():
     for series_id, label in SERIES.items():
         print(f"Fetching {series_id}...")
         observations = fetch_series(series_id)
-        chunks = build_chunks(series_id, label, observations)
+        chunks, metadatas = build_chunks(series_id, label, observations)
         embeddings = get_embeddings(chunks)
 
         ids = [f"{series_id}_{i}" for i in range(len(chunks))]
-        metadatas = [{"series_id": series_id, "label": label} for _ in chunks]
+        #metadatas = [{"series_id": series_id, "label": label} for _ in chunks]
 
         collection.upsert(
             ids=ids,

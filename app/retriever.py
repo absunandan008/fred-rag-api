@@ -6,12 +6,16 @@ client = chromadb.PersistentClient(path=CHROMA_PATH)
 collection = client.get_or_create_collection(name="fred")
 
 
-def retrieve(query: str, n_results: int = 5) -> list[dict]:
+def retrieve(query: str, n_results: int = 5, date_from: str = None) -> list[dict]:
     embedding = get_embedding(query)
+
+    where = {"date_to": {"$gte": date_from}} if date_from else None
+
     results = collection.query(
         query_embeddings=[embedding],
         n_results=n_results,
-        include=["documents", "metadatas", "distances"]
+        include=["documents", "metadatas", "distances"],
+        where = {"date_to_int": {"$gte": int(date_from.replace("-", ""))}} if date_from else None
     )
 
     docs = []
