@@ -94,10 +94,20 @@ docker compose up --build
 # Ingest FRED data
 docker compose exec api uv run python app/ingest.py
 
-# Query
+# Basic query
 curl -X POST http://localhost:8000/query \
   -H "Content-Type: application/json" \
   -d '{"question": "What has the unemployment rate been doing over the last year?"}'
+
+# Query with date filter
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What has the unemployment rate been doing?", "date_from": "2024-01-01"}'
+
+# Query a specific series with date filter
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is the trend in CPI inflation?", "date_from": "2023-01-01"}'
 ```
 
 ### Switch to AWS Bedrock
