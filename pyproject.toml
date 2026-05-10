@@ -4,4 +4,14 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "boto3>=1.43.6",
+    "chromadb>=1.5.9",
+    "fastapi>=0.136.1",
+    "ollama>=0.6.2",
+    "onnxruntime==1.21.0",
+    "python-dotenv>=1.2.2",
+    "requests>=2.33.1",
+    "sentence-transformers>=5.4.1",
+    "uvicorn>=0.46.0",
+]
