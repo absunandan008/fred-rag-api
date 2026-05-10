@@ -30,6 +30,10 @@ FastAPI (REST API)
 
 **Key design principle:** the LLM provider is swappable via a single environment variable. Local development runs on Ollama with no cloud costs. Production targets AWS Bedrock (Amazon Nova Micro).
 
+## Architecture diagram
+
+![FRED RAG flow](docs/assets/fred_rag_flow.svg)
+
 ## Tech Stack
 
 | Layer | Tool |
@@ -143,3 +147,5 @@ The API includes an eval suite measuring:
 ---
 
 *Data provided by [FRED, Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org).*
+
+
