@@ -9,12 +9,11 @@ FRED_BASE_URL = "https://api.stlouisfed.org/fred/series/observations"
 SERIES = {
     "UNRATE": "unemployment rate",
     "CPIAUCSL": "consumer price index (CPI)",
-    "FEDFUNDS": "federal funds rate",
     "GDP": "gross domestic product (GDP)",
     "GDPC1": "real GDP",
     "PCE": "personal consumption expenditures",
     "PAYEMS": "total nonfarm payrolls",
-    "T10YIR": "10-year treasury inflation-indexed security rate",
+    "DGS10": "10-year treasury yield",
 }
 
 def fetch_series(series_id: str) -> list[dict]:

@@ -10,6 +10,7 @@ dependencies = [
     "fastapi>=0.136.1",
     "ollama>=0.6.2",
     "onnxruntime==1.21.0",
+    "protobuf==3.20.3",
     "python-dotenv>=1.2.2",
     "requests>=2.33.1",
     "sentence-transformers>=5.4.1",
