@@ -74,7 +74,7 @@ fred-rag-api/
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/fred-rag-api.git
+git clone https://github.com/absunandan008/fred-rag-api.git
 cd fred-rag-api
 
 # Install dependencies
