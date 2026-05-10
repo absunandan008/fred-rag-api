@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 
-load_dotenv()
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 #LLM
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama")
